@@ -1,10 +1,104 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 class ProfileDesign extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.fromLTRB(22.0, 0.0, 22.0, 0.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('Name', style: TextStyle(
+                  ),),
+                  SizedBox(height: 4.0,),
+                  Text('Jordão!!!', style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16.0
+                  ),)
+                ],
+              ),
+              SizedBox(height: 16.0,),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('Email', style: TextStyle(
+                  ),),
+                  SizedBox(height: 4.0,),
+                  Text('Jordao@gmail.com', style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16.0
+                  ),)
+                ],
+              ),
+              SizedBox(height: 16.0,),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('Location:', style: TextStyle(
+                  ),),
+                  SizedBox(height: 4.0,),
+                  Text('São Paulo, BR', style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16.0
+                  ),)
+                ],
+              ),
+              SizedBox(height: 16.0,),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('Languages', style: TextStyle(
+                  ),),
+                  SizedBox(height: 4.0,),
+                  Text('English, Portuguese', style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16.0
+                  ),)
+                ],
+              ),
+              SizedBox(height: 16.0,),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('Occupation', style: TextStyle(
+                  ),),
+                  SizedBox(height: 4.0,),
+                  Text('Sales man', style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16.0
+                  ),)
+                ],
+              ),
+              Divider(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('My Family:', style: TextStyle(
+                  ),),
+                  SizedBox(height: 16.0,),
+                  Text('Kitty Short!!!', style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16.0
+                  ),),
+                  SizedBox(height: 16.0,),
+                  Text('Alex Short!!!', style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16.0
+                  ),)
+                ],
+              ),
+            ],
+          ),
+        ),
+      )
     );
   }
   
@@ -12,7 +106,6 @@ class ProfileDesign extends StatelessWidget {
 
 // we use the PreferredSizeWidget because AppBar
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
-
   @override
   Widget build(BuildContext context) {
     return ClipPath(
@@ -134,13 +227,47 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                             ],
                           ),
                         ],
-                      )
+                      ),
+
                     ],
                   )
                 ],
               ),
             ),
-
+            SizedBox(height: 30.0,),
+            Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: GestureDetector(
+                  onTap: (){
+                    print('Buttom pressed');
+                  },
+                  child: Transform.rotate(
+                    angle: math.pi / 18,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                                offset: Offset(0, -2),
+                                color: Colors.black54,
+                                blurRadius: 4.0
+                            )
+                          ],
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(16.0))
+                      ),
+                      child: Center(
+                        child: Text('Profile Edit',
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),),
+                      height: 32.0,
+                      width: 110.0,
+                    ),
+                  ),
+                ),
+              ),
+            )
           ],
         )
       ),
