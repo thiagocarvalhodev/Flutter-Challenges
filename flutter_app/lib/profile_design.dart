@@ -106,6 +106,23 @@ class ProfileDesign extends StatelessWidget {
 
 // we use the PreferredSizeWidget because AppBar
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
+
+  Widget _customAppBarText({
+    @required String firstText,
+    @required String secondText,
+    @required double firstFontSize,
+    @required double secondFontSize}) {
+    return Column(
+      children: <Widget>[
+        Text(firstText, style: TextStyle(
+            fontSize: firstFontSize, color: Colors.white
+        ),),
+        Text(secondText, style: TextStyle(
+            fontSize: secondFontSize, fontWeight: FontWeight.bold, color: Colors.white),)
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ClipPath(
@@ -172,60 +189,45 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              Text('Schedule', style: TextStyle(
-                                  fontSize: 18.0, color: Colors.white
-                              ),),
-                              Text('8', style: TextStyle(
-                                  fontSize: 32.0, fontWeight: FontWeight.bold, color: Colors.white),)
-                            ],
-                          ),
+                          // Schedule
+                          _customAppBarText(
+                              firstText: 'Schedule',
+                              secondText: '8',
+                              firstFontSize: 18,
+                              secondFontSize: 32),
                           SizedBox(width: 12.0,),
-                          Column(
-                            children: <Widget>[
-                              Text('Events', style: TextStyle(
-                                  fontSize: 18.0, color: Colors.white
-                              ),),
-                              Text('15', style: TextStyle(
-                                  fontSize: 32.0, fontWeight: FontWeight.bold, color: Colors.white),)
-                            ],
-                          ),
+                          // Events
+                          _customAppBarText(
+                              firstText: 'Events',
+                              secondText: '15',
+                              firstFontSize: 18,
+                              secondFontSize: 32),
                           SizedBox(width: 12.0,),
-                          Column(
-                            children: <Widget>[
-                              Text('Routines', style: TextStyle(
-                                  fontSize: 18.0, color: Colors.white
-                              ),),
-                              Text('4', style: TextStyle(
-                                  fontSize: 32.0, fontWeight: FontWeight.bold, color: Colors.white),)
-                            ],
-                          ),
+                          // Routines
+                          _customAppBarText(
+                              firstText: 'Routines',
+                              secondText: '4',
+                              firstFontSize: 18,
+                              secondFontSize: 32),
                         ],
                       ),
                       SizedBox(height: 20.0,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              Text('Savings', style: TextStyle(
-                                  fontSize: 18.0, color: Colors.white
-                              ),),
-                              Text('20k', style: TextStyle(
-                                  fontSize: 26.0, fontWeight: FontWeight.bold, color: Colors.white),)
-                            ],
-                          ),
+                          // Savings
+                          _customAppBarText(
+                              firstText: 'Savings',
+                              secondText: '20k',
+                              firstFontSize: 18,
+                              secondFontSize: 26),
                           SizedBox(width: 12.0,),
-                          Column(
-                            children: <Widget>[
-                              Text('July Goal', style: TextStyle(
-                                  fontSize: 18.0, color: Colors.white
-                              ),),
-                              Text('20k', style: TextStyle(
-                                  fontSize: 26.0, fontWeight: FontWeight.bold, color: Colors.white),)
-                            ],
-                          ),
+                          // July Goal
+                          _customAppBarText(
+                              firstText: 'July Goal',
+                              secondText: '20k',
+                              firstFontSize: 18,
+                              secondFontSize: 32),
                         ],
                       ),
 
@@ -279,6 +281,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   Size get preferredSize => Size(double.infinity, 300);
 }
 
+// Function that clip the Profile's AppBar
 class MyClipper extends CustomClipper<Path> {
 
   @override
@@ -297,6 +300,5 @@ class MyClipper extends CustomClipper<Path> {
     // TODO: implement shouldReclip
     return true;
   }
-
 }
 
