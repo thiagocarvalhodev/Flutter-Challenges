@@ -4,8 +4,12 @@ import 'dart:convert';
 // by Pooja Bhaumik
 
 // We will solve the challenge of this article, that is handle with this
-// giant json file
+// giant json file.
 
+// The purporse of this exercise is to practice with Json Deseriealization and 
+// how to fetch some complex data structures.
+
+// Json that will handle
 String json = """
 { "page": 1,
   "per_page": 3,
@@ -69,6 +73,7 @@ String json = """
 }
 """;
 
+// Class that handle with Author features
 class Author {
   String first_name;
   String last_name;
@@ -83,6 +88,7 @@ class Author {
   }
 }
 
+// Class that handle with Data features
 class Data {
   int id;
   String first_name;
@@ -107,6 +113,10 @@ class Data {
   }
 }
 
+// List of Data Objects
+// Was create for more clear the code.
+// We get the Object Data, then its maped, fetch each document from Json
+// and put all this stuff into a List of Data Objects 
 class ListData {
   List<Data> datas;
 
@@ -133,6 +143,7 @@ class ListImages {
   }
 }
 
+// Class that handle with Image features
 class Image {
   int id;
   String imageName;
@@ -147,6 +158,7 @@ class Image {
   }
 }
 
+// This class is responsible for all data fetch of the Json
 class Page {
   int page;
   int per_page;
@@ -159,6 +171,9 @@ class Page {
   Page({this.page, this.per_page, this.total, this.total_pages,
     this.author, this.data  
   });
+
+  // In the Json, we have a List of Objects Data, and, to fetch,
+  // we must to pass the List of Datas
 
   factory Page.fromJson(Map<String, dynamic> parsedJson) {
     var list = parsedJson['data'] as List;
@@ -173,19 +188,16 @@ class Page {
       data: datas
     );
   }
-
 }
 
 int main() {
-
-
   Page page = Page();
 
   var parsedJson = jsonDecode(json);
 
   page = Page.fromJson(parsedJson);
 
-  print(page.author.last_name);
-
+  // test
+  print(page.data.datas[0].avatar);
   return 0;
 }
