@@ -31,16 +31,25 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double sizeTopBar = MediaQuery.of(context).size.height / 4;
 
-    return Container(
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
       // Wait to get the function showOverlay
-      child: FutureBuilder(
-        future: Future.delayed(Duration.zero, (){
-          showOverlay(context, sizeTopBar);
-        }),
-        builder: (context, snapshot) {
-          return _backGround(context, sizeTopBar);
-        },
-      )
+          child: Stack(
+            fit: StackFit.loose,
+            children: <Widget>[
+              _backGround(context, sizeTopBar),
+              Positioned(
+                child: _cardLogin(context),
+                top: sizeTopBar - 20,
+                left: 20,
+                right: 20,
+              )
+            ],
+          )
+        ),
+      ),
     );
   }
 
