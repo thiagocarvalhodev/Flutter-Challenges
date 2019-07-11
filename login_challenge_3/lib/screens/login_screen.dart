@@ -1,32 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/scheduler.dart';
 
 class LoginScreen extends StatelessWidget {
   final mainColor = Color(0xFF50b6bb);
   final secondColor = Color(0xFF45969b);
 
-  // function that show the CardLogin in the screen
-  // without use the Stack to do it
-  showOverlay(BuildContext context, double sizeTopBar) {
-    // first OverlayState and OverlayEntry
-    OverlayState overlayState = Overlay.of(context);
-    OverlayEntry overlayEntry = OverlayEntry(
-      builder: (context) {
-        return Positioned(
-          child: _cardLogin(context),
-          top: sizeTopBar - 20,
-          left: 20,
-          right: 20,
-        );
-      }
-    );
-    // And then Insert the widget in the screen
-    overlayState.insert(overlayEntry);
-  }
-
-  // in order to don't use the StatefulWidget and the initState
-  // use the Future to get the ShowOverlay function
   @override
   Widget build(BuildContext context) {
     double sizeTopBar = MediaQuery.of(context).size.height / 4;
@@ -37,7 +15,6 @@ class LoginScreen extends StatelessWidget {
           height: MediaQuery.of(context).size.height,
       // Wait to get the function showOverlay
           child: Stack(
-            fit: StackFit.loose,
             children: <Widget>[
               _backGround(context, sizeTopBar),
               Positioned(
@@ -78,7 +55,7 @@ class LoginScreen extends StatelessWidget {
                 end: Alignment.bottomCenter,
                 colors: [
                   secondColor,
-                  mainColor
+                  Theme.of(context).primaryColor
                 ]
               )
           )
@@ -98,7 +75,7 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Text('Login', style: TextStyle(
-                color: mainColor, fontSize: 24, fontWeight: FontWeight.w500,
+                fontSize: 24, fontWeight: FontWeight.w500,
                 fontFamily: 'WorkSans'
               ),),
               customTextField(
