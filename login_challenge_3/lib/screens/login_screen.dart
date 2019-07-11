@@ -1,26 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
 
 class LoginScreen extends StatelessWidget {
   final mainColor = Color(0xFF50b6bb);
   final secondColor = Color(0xFF45969b);
 
+  // function that show the CardLogin in the screen
+  // without use the Stack to do it
+  showOverlay(BuildContext context, double sizeTopBar) {
+    // first OverlayState and OverlayEntry
+    OverlayState overlayState = Overlay.of(context);
+    OverlayEntry overlayEntry = OverlayEntry(
+      builder: (context) {
+        return Positioned(
+          child: _cardLogin(context),
+          top: sizeTopBar - 20,
+          left: 20,
+          right: 20,
+        );
+      }
+    );
+    // And then Insert the widget in the screen
+    overlayState.insert(overlayEntry);
+  }
+
+  // in order to don't use the StatefulWidget and the initState
+  // use the Future to get the ShowOverlay function
   @override
   Widget build(BuildContext context) {
     double sizeTopBar = MediaQuery.of(context).size.height / 4;
 
     return Container(
-      child: Stack(
-        children: <Widget>[
-          _backGround(context, sizeTopBar),
-          Positioned(
-            child: _cardLogin(context),
-            height: MediaQuery.of(context).size.height / 1.5,
-            top: sizeTopBar - 20,
-            left: 20,
-            right: 20,
-          )
-        ],
+      // Wait to get the function showOverlay
+      child: FutureBuilder(
+        future: Future.delayed(Duration.zero, (){
+          showOverlay(context, sizeTopBar);
+        }),
+        builder: (context, snapshot) {
+          return _backGround(context, sizeTopBar);
+        },
       )
     );
   }
@@ -60,58 +79,61 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget _cardLogin(BuildContext context) {
-    return Card(
-      elevation: 2.5,
-      child: Padding(
-        padding: EdgeInsets.all(25.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Text('Login', style: TextStyle(
-              color: mainColor, fontSize: 24, fontWeight: FontWeight.w500,
-              fontFamily: 'WorkSans'
-            ),),
-            customTextField(
-              labelText: 'Email',
-              hintText: 'exemplo@email.com',
-              labelStyle: TextStyle(
-                color: mainColor,
-                fontSize: 12, fontWeight: FontWeight.bold,
+    return Container(
+      height: MediaQuery.of(context).size.height / 1.5,
+      child: Card(
+        elevation: 2.5,
+        child: Padding(
+          padding: EdgeInsets.all(25.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Text('Login', style: TextStyle(
+                color: mainColor, fontSize: 24, fontWeight: FontWeight.w500,
                 fontFamily: 'WorkSans'
-                )
-            ),
-            customTextField(
-              obscureText: true,
-              hintText: '* * * * * *',
-              labelText: 'Senha',
-              labelStyle: TextStyle(
+              ),),
+              customTextField(
+                labelText: 'Email',
+                hintText: 'exemplo@email.com',
+                labelStyle: TextStyle(
                   color: mainColor,
                   fontSize: 12, fontWeight: FontWeight.bold,
                   fontFamily: 'WorkSans'
-                ),
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Text('Esqueceu a senha?', style: TextStyle(
-                color: Theme.of(context).primaryColor,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'WorkSans'
-              ),),
-            ),
-            customButton(),
-            Align(
-              alignment: Alignment.center,
-              child: Text('Não tem uma conta?\nRegistre-se', 
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                color: Theme.of(context).primaryColor,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'WorkSans'
-              ),),
-            ),
-          ],
-        ),
-      )
+                  )
+              ),
+              customTextField(
+                obscureText: true,
+                hintText: '* * * * * *',
+                labelText: 'Senha',
+                labelStyle: TextStyle(
+                    color: mainColor,
+                    fontSize: 12, fontWeight: FontWeight.bold,
+                    fontFamily: 'WorkSans'
+                  ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Text('Esqueceu a senha?', style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'WorkSans'
+                ),),
+              ),
+              customButton(),
+              Align(
+                alignment: Alignment.center,
+                child: Text('Não tem uma conta?\nRegistre-se', 
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'WorkSans'
+                ),),
+              ),
+            ],
+          ),
+        )
+      ),
     );
   }
 
